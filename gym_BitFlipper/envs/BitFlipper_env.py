@@ -21,7 +21,7 @@ class BitFlipperEnv(gym.Env):
     self.state = self.initial_state
     self.envstepcount = 0
     
-  def _step(self,action):
+  def step(self,action):
     '''
      accepts action and returns obs,reward, b_flag(episode start), info dict(optional)
     '''
@@ -31,32 +31,32 @@ class BitFlipperEnv(gym.Env):
     done = self._compute_done(reward)
     return  (np.array(self.state),reward,done,{})
 
-  def _reset(self):  
+  def reset(self):  
     self.envstepcount = 0
     self.state = self.initial_state
     return self.state
   
-  def _close(self):
+  def close(self):
     pass
   
-  def _render(self, mode='human', close=False):
+  def render(self, mode='human', close=False):
     pass 
   
-  def _seed(self,seed):
+  def seed(self,seed):
     pass
   
-  def _bitflip(self,index):
+  def bitflip(self,index):
     s2=np.array(self.state)
     s2[index] = not s2[index]
     return s2
   
-  def _calculate_reward(self):
-    if(self.goal==self.state):
+  def calculate_reward(self):
+    if(np.array_equal(self.goal,self.state)):
       return 0
     else:
       return -1
     
-  def _compute_done(self,reward):
+  def compute_done(self,reward):
     if(reward==0 or self.envstepcount >=100):
       return True
     else:
