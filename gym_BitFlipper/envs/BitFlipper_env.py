@@ -74,7 +74,7 @@ class BitFlipperEnv(gym.Env):
     return s2
   
   def _calculate_reward(self):
-    if(np.equal(self.goal,self.state):
+    if(np.array_equal(self.goal,self.state):
       return 0
     else:
       return -1
