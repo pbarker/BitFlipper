@@ -18,7 +18,7 @@ def main(n=10,space_seed=0):
   except :
     print("Environment with id = "+id+" already registered.Continuing with that environment.")
   env=gym.make(id)
-  print("Initial State: "+str((env.initial_state).T)))
+  print("Initial State: "+str((env.initial_state).T))
   print("Goal State: "+str((env.goal).T))
   # learning agent
   a=deepq.models.mlp([256])
