@@ -62,25 +62,3 @@ class BitFlipperEnv(gym.Env):
     else:
       return False
   
-  def _render(self, mode='human', close=False):
-    pass 
-  
-  def _seed(self,seed):
-    pass
-  
-  def _bitflip(self,index):
-    s2=np.array(self.state)
-    s2[index] = not s2[index]
-    return s2
-  
-  def _calculate_reward(self):
-    if(np.array_equal(self.goal,self.state)):
-      return 0
-    else:
-      return -1
-    
-  def _compute_done(self,reward):
-    if(reward==0 or self.envstepcount >=100):
-      return True
-    else:
-      return False
