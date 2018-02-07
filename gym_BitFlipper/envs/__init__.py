@@ -1,1 +1,4 @@
-from BitFlipper.gym_BitFlipper.envs.BitFlipper_env import BitFlipperEnv
+
+from gym_BitFlipper.envs.BitFlipper_env import BitFlipperEnv
+
+

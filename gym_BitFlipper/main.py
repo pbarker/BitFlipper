@@ -1,6 +1,9 @@
 import gym
 from baselines import deepq
+import gym_BitFlipper
+
 from gym.envs.registration import register 
+
 def callback(lcl, _glb):  ##  make changes
   
     # stop training if reward exceeds 199
@@ -14,7 +17,7 @@ def main():
   id = "BitFlipper"+str(n)+":"+str(space_seed)+"-v0"
   register(
     id=id,
-    entry_point='BitFlipper.gym_BitFlipper.envs:BitFlipperEnv',
+    entry_point='gym_BitFlipper.envs:BitFlipperEnv',
     kwargs = {"space_seed":space_seed,"n":n}
   )
   env=gym.make(id)
