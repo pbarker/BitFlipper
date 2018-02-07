@@ -1,4 +1,4 @@
-'''
+
 from gym.envs.registration import register
 #id='BitFlipper-n:space_seed'
 register(
