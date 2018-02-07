@@ -57,7 +57,7 @@ class BitFlipperEnv(gym.Env):
       return -1
     
   def compute_done(self,reward):
-    if(reward==0 or self.envstepcount >=100):
+    if(reward==0 or self.envstepcount >=self.n):
       return True
     else:
       return False
