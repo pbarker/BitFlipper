@@ -10,10 +10,8 @@ def callback(lcl, _glb):  ##  make changes
     is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
     return is_solved
   
-def main():
+def main(n=10,space_seed=0):
   # create environment
-  space_seed = 1
-  n = 15
   id = "BitFlipper"+str(n)+":"+str(space_seed)+"-v0"
   try :
     register(id=id,entry_point='gym_BitFlipper.envs:BitFlipperEnv',kwargs = {"space_seed":space_seed,"n":n})
