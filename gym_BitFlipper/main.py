@@ -15,11 +15,10 @@ def main():
   space_seed = 1
   n = 15
   id = "BitFlipper"+str(n)+":"+str(space_seed)+"-v0"
-  register(
-    id=id,
-    entry_point='gym_BitFlipper.envs:BitFlipperEnv',
-    kwargs = {"space_seed":space_seed,"n":n}
-  )
+  try :
+    register(id=id,entry_point='gym_BitFlipper.envs:BitFlipperEnv',kwargs = {"space_seed":space_seed,"n":n})
+  except :
+    print("Environment with id ="+id+" already registered.Continuing with that environment.")
   env=gym.make(id)
   
   # learning agent
