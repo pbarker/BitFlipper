@@ -40,7 +40,7 @@ class BitFlipperEnv(gym.Env):
     pass
   
   def render(self, mode='human', close=False):
-    print(str("State: "+str(self.state.T)+" Steps done: "+str(self.envstepcount)) 
+    print(str("State: "+str(self.state.T)+" Steps done: "+str(self.envstepcount))) 
   
   def seed(self,seed):
     pass
