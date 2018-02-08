@@ -57,7 +57,7 @@ def test(env,load_path,num_episodes=100):
   return success_rate
 
 def main():
-  n=7
+  n=4
   space_seed=0
   env = make_env(n,space_seed)
   path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
