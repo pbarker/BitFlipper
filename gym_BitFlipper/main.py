@@ -4,6 +4,8 @@ import gym_BitFlipper
 import numpy as np
 from gym.envs.registration import register 
 import os
+import tensorflow as tf
+
 
 def callback(lcl, _glb):
     #for deepq training
@@ -57,10 +59,10 @@ def test(env,load_path,num_episodes=100):
   return success_rate
 
 def main():
-  n=4
+  n=3
   space_seed=0
   env = make_env(n,space_seed)
   path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
   train(env,path)
-  os._exit(00)
+  tf.reset_default_graph()
   success_rate = test(env,path) 
