@@ -38,7 +38,7 @@ def train(env,save_path):
 def test(env,load_path,num_epsiodes=100):
   act = deepq.load(load_path)
   success_count=0.0
-  for i in range(num_episodes):
+  for i in range(100):
       obs, done = env.reset(), False
       episode_rew = 0.0
       while not done:
