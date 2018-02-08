@@ -3,6 +3,7 @@ from baselines import deepq
 import gym_BitFlipper
 import numpy as np
 from gym.envs.registration import register 
+import os
 
 def callback(lcl, _glb):
     #for deepq training
@@ -61,4 +62,5 @@ def main():
   env = make_env(n,space_seed)
   path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
   train(env,path)
+  os._exit(00)
   success_rate = test(env,path) 
