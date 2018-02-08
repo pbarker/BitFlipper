@@ -35,10 +35,10 @@ def train(env,save_path):
   print("Saving model to "+save_path)
   act.save(save_path)
 
-def test(env,load_path,num_epsiodes=100):
+def test(env,load_path,num_episodes=100):
   act = deepq.load(load_path)
   success_count=0.0
-  for i in range(100):
+  for i in range(num_episodes):
       obs, done = env.reset(), False
       episode_rew = 0.0
       while not done:
@@ -46,7 +46,7 @@ def test(env,load_path,num_epsiodes=100):
           obs, rew, done, _ = env.step(act(obs[None])[0])
           episode_rew += rew
       env.render()    
-      if(episode_rew < -env.n):
+      if(episode_rew > -env.n):
         print("Episode successful with reward ",episode_rew)
         success_count+=1.0
       else:
