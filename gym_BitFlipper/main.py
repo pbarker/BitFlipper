@@ -76,5 +76,5 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
             train(env,save_path+filename+".pkl")
         with tf.Graph().as_default():
             success_rate = test(env,save_path+filename,num_episodes) 
-            test_results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
+            test_results_file.write("Bits :"+str(n)+","+"Seed :"+str(space_seed)+","+"Success :"+str(success_rate)+"\n")
   test_results_file.close()
