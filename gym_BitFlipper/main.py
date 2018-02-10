@@ -65,5 +65,4 @@ def main():
   env = make_env(n,space_seed)
   path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
   train(env,path)
-  tf.reset_default_graph()
   success_rate = test(env,path) 
