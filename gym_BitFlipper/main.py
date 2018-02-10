@@ -60,11 +60,16 @@ def test(env,load_path,num_episodes=100):
   return success_rate
 
 def main():
-  n=3
-  space_seed=0
-  env = make_env(n,space_seed)
-  path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
-  with tf.Graph().as_default():
-    train(env,path)
-  with tf.Graph().as_default():
-    success_rate = test(env,path) 
+  n_list=[5,10]#,15,20,25]
+  space_seed_list=[0]#,1,2]
+  results_file = open("test_results","w")
+  for n in n_list:
+    for space_seed in space_seed_list:
+        env = make_env(n,space_seed)
+        path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
+        with tf.Graph().as_default():
+            train(env,path)
+        with tf.Graph().as_default():
+            success_rate = test(env,path) 
+            results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
+results_file.close()
