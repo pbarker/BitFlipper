@@ -95,7 +95,7 @@ def learn(env,
           prioritized_replay_eps=1e-6,
           num_cpu=16,
           callback=None,
-         scope=None,
+         scope="default",
          reuse=False):
     """Train a deepq model.
 
