@@ -5,7 +5,7 @@ from gym import spaces
 class BitFlipperEnv(gym.Env):
   '''Bit Flipping environment
       The state space is binary strings of length n.
-      The action space is an index i from {0,1...n} which represents the agent flipping ith bit of the environment.
+      The action space is an index i from {0,1...n-1} which represents the agent flipping ith bit of the environment.
       Action = n means agent stays in the same state.
       Given an initial state the agent has to reach a goal state.
       Reward: Only goal state has reward 0,rest all states have reward -1
@@ -13,7 +13,7 @@ class BitFlipperEnv(gym.Env):
   metadata = {'render.modes': ['human','ansi']}
   def __init__(self,n=10,space_seed=0):
     self.n=n    
-    self.action_space = spaces.Discrete(self.n +1) #there is an option not to flip any bit( index = n)
+    self.action_space = spaces.Discrete(self.n +1) #there is an option NOT to flip any bit( index = n)
     self.observation_space = spaces.MultiBinary(self.n)
     self.reward_range = (-1,0)
     spaces.seed(space_seed)
