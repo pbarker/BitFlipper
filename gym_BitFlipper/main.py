@@ -32,7 +32,7 @@ def train(env,save_path):
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
   act = deepq.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.05,
-      exploration_final_eps=0.005,train_freq=1,batch_size=128,
+      exploration_final_eps=0.005,train_freq=1,batch_size=128,gamma=0.95,
       print_freq=200,checkpoint_freq=1000,target_network_update_freq=16*env.n,callback=callback)
   #save trained model 
   print("Saving model to "+save_path)
@@ -64,10 +64,10 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
     for space_seed in space_seed_list:
         print("started for "+str(n)+","+str(space_seed))
         env = make_env(n,space_seed)
-        path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
+        filename = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
         with tf.Graph().as_default():
-            train(env,path)
+            train(env,save_path+filename)
         with tf.Graph().as_default():
-            success_rate = test(env,path,num_episodes) 
+            success_rate = test(env,save_path+filename,num_episodes) 
             test_results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
   test_results_file.close()
