@@ -1,6 +1,6 @@
 import gym
 from baselines import deepq
-import deepq_main
+from gym_BitFlipper import deepq_main 
 import gym_BitFlipper
 import numpy as np
 from gym.envs.registration import register 
