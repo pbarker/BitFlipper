@@ -41,7 +41,7 @@ def train(env,save_path):
 def test(env,load_path,num_episodes=1000):
   act = deepq.load(load_path+".pkl")
   success_count=0.0
-  test_render_file = open(load_path,"w")
+  test_render_file = open(load_path+".txt","w")
   for i in range(num_episodes):
       obs, done = env.reset(), False
       episode_rew = 0.0
@@ -66,7 +66,7 @@ def test(env,load_path,num_episodes=1000):
   return success_rate
 
 def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
-  test_results_file = open(save_path+"test_results","w")
+  test_results_file = open(save_path+"test_results.txt","w")
   for n in n_list:
     for space_seed in space_seed_list:
         print("started for "+str(n)+","+str(space_seed))
