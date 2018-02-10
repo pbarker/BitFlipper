@@ -1,6 +1,5 @@
 import gym
 from baselines import deepq
-from gym_BitFlipper import deepq_main 
 import gym_BitFlipper
 import numpy as np
 from gym.envs.registration import register 
@@ -32,9 +31,9 @@ def train(env,save_path):
   print("Max_reward: "+str(env.reward_max))
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
-  act = deepq_main.learn(env,q_func=a,lr=1e-4,max_timesteps=1000000,buffer_size=100000,exploration_fraction=0.02,
+  act = deepq.learn(env,q_func=a,lr=1e-4,max_timesteps=1000000,buffer_size=100000,exploration_fraction=0.02,
       exploration_final_eps=0.05,train_freq=1,batch_size=64,
-      print_freq=200,checkpoint_freq=600,callback=callback,scope="BitFlipper",reuse=tf.AUTO_REUSE)
+      print_freq=200,checkpoint_freq=600,callback=callback)
   #save trained model 
   print("Saving model to "+save_path)
   act.save(save_path)
