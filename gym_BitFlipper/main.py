@@ -65,6 +65,7 @@ def main():
   results_file = open("test_results","w")
   for n in n_list:
     for space_seed in space_seed_list:
+        print("started for "+str(n)+","+str(space_seed))
         env = make_env(n,space_seed)
         path = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
         with tf.Graph().as_default():
