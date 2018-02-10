@@ -72,4 +72,4 @@ def main():
         with tf.Graph().as_default():
             success_rate = test(env,path) 
             results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
-results_file.close()
+  results_file.close()
