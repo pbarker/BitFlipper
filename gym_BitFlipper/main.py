@@ -39,23 +39,30 @@ def train(env,save_path):
   act.save(save_path)
 
 def test(env,load_path,num_episodes=1000):
-  act = deepq.load(load_path)
+  act = deepq.load(load_path+".pkl")
   success_count=0.0
+  test_render_file = open(load_path,"w")
   for i in range(num_episodes):
       obs, done = env.reset(), False
       episode_rew = 0.0
       while not done:
-          env.render()
+          render_string = env.render(mode='ansi')+"\n"
+          test_render_file.write(render_string)  
           obs, rew, done, _ = env.step(act(obs[None])[0])
           episode_rew += rew
-      env.render()    
+      render_string = env.render(mode='ansi')+"\n"
+      test_render_file.write(render_string)
       if(episode_rew > -env.n):
         print("Episode successful with reward ",episode_rew)
+        test_render_file.write("Episode successful with reward "+str(episode_rew)+"\n")
         success_count+=1.0
       else:
         print("Episode unsuccessful with reward ",episode_rew)
+        test_render_file.write("Episode unsuccessful with reward "+str(episode_rew)+"\n")
   success_rate = success_count/num_episodes
   print("Success Rate: ",success_rate)
+  test_render_file.write("Success Rate: "+str(success_rate)+"\n")
+  test_render_file.close()
   return success_rate
 
 def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
@@ -64,9 +71,9 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
     for space_seed in space_seed_list:
         print("started for "+str(n)+","+str(space_seed))
         env = make_env(n,space_seed)
-        filename = "bitflip"+str(n)+":"+str(space_seed)+".pkl"
+        filename = "bitflip"+str(n)+":"+str(space_seed)
         with tf.Graph().as_default():
-            train(env,save_path+filename)
+            train(env,save_path+filename+".pkl")
         with tf.Graph().as_default():
             success_rate = test(env,save_path+filename,num_episodes) 
             test_results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
