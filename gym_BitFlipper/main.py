@@ -12,7 +12,7 @@ def callback(lcl, _glb):
     #stop training when mean reward for last 100 episodes <= (reward_max - reward_dist)
     reward_dist = 0.1
     is_solved = (lcl['saved_mean_reward']!=None) and (lcl['saved_mean_reward']>=(lcl['env'].reward_max - reward_dist))
-    if(lcl['t]%1000==0):
+    if(lcl['t']%1000==0):
         print(is_solved)
     return is_solved
 
