@@ -9,7 +9,7 @@ class BitFlipperEnv(gym.Env):
       Given an initial state the agent has to reach a goal state.
       Reward: Only goal state has reward 0,rest all states have reward -1
   '''
-  metadata = {'render.modes': ['human']}
+  metadata = {'render.modes': ['human','ansi']}
   def __init__(self,n=10,space_seed=0):
     self.n=n    
     self.action_space = spaces.Discrete(self.n)
@@ -43,7 +43,10 @@ class BitFlipperEnv(gym.Env):
     pass
   
   def render(self, mode='human', close=False):
-    print(str("State: "+str(self.state.T)+" Steps done: "+str(self.envstepcount))) 
+    print_str = str("State: "+str(self.state.T)+" Steps done: "+str(self.envstepcount))
+    print(print_str)
+    if(mode=='ansi'):
+      return print_str 
   
   def seed(self,seed):
     pass
