@@ -23,7 +23,7 @@ class BitFlipperEnv(gym.Env):
     self.envstepcount = 0
     self.reward_max = -np.sum(np.bitwise_xor(self.initial_state,self.goal))+1
     if(np.array_equal(self.goal,self.initial_state)):
-       self.reward_max = -1
+       self.reward_max = 0
     
   def step(self,action):
     '''
