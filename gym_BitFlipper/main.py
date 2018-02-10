@@ -58,8 +58,8 @@ def test(env,load_path,num_episodes=1000):
   print("Success Rate: ",success_rate)
   return success_rate
 
-def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000):
-  results_file = open("test_results","w")
+def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
+  test_results_file = open(save_path+"test_results","w")
   for n in n_list:
     for space_seed in space_seed_list:
         print("started for "+str(n)+","+str(space_seed))
@@ -69,5 +69,5 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000):
             train(env,path)
         with tf.Graph().as_default():
             success_rate = test(env,path,num_episodes) 
-            results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
-  results_file.close()
+            test_results_file.write(str(n)+","+str(space_seed)+","+str(success_rate)+"\n")
+  test_results_file.close()
