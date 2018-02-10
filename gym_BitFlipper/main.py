@@ -31,9 +31,9 @@ def train(env,save_path):
   print("Max_reward: "+str(env.reward_max))
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
-  act = deepq.learn(env,q_func=a,lr=1e-4,max_timesteps=1000000,buffer_size=100000,exploration_fraction=0.02,
-      exploration_final_eps=0.05,train_freq=1,batch_size=64,
-      print_freq=200,checkpoint_freq=600,callback=callback)
+  act = deepq.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.02,
+      exploration_final_eps=0.02,train_freq=1,batch_size=128,
+      print_freq=200,checkpoint_freq=1000,target_network_update_freq=16*env.n,callback=callback)
   #save trained model 
   print("Saving model to "+save_path)
   act.save(save_path)
@@ -58,9 +58,7 @@ def test(env,load_path,num_episodes=100):
   print("Success Rate: ",success_rate)
   return success_rate
 
-def main():
-  n_list=[5,10]#,15,20,25]
-  space_seed_list=[0]#,1,2]
+def main(n_list=[5,10],  space_seed_list=[0]):
   results_file = open("test_results","w")
   for n in n_list:
     for space_seed in space_seed_list:
