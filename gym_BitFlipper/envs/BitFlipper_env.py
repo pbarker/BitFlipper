@@ -12,7 +12,7 @@ class BitFlipperEnv(gym.Env):
   metadata = {'render.modes': ['human','ansi']}
   def __init__(self,n=10,space_seed=0):
     self.n=n    
-    self.action_space = spaces.Discrete(self.n)
+    self.action_space = spaces.Discrete(self.n +1) #there is an option not to flip any bit( index = n)
     self.observation_space = spaces.MultiBinary(self.n)
     self.reward_range = (-1,0)
     spaces.seed(space_seed)
@@ -28,12 +28,15 @@ class BitFlipperEnv(gym.Env):
     '''
      accepts action and returns obs,reward, b_flag(episode start), info dict(optional)
     '''
-    self.state = self.bitflip(action)  ## computes s_t1
-    reward = self.calculate_reward()
-    self.envstepcount += 1
-    done = self.compute_done(reward)
-    return  (np.array(self.state),reward,done,{})
-
+    if(self.action_space.contains(action):
+      if(!action==self.n)
+        self.state = self.bitflip(action)  ## computes s_t1
+      reward = self.calculate_reward()
+      self.envstepcount += 1
+      done = self.compute_done(reward)
+      return  (np.array(self.state),reward,done,{})
+    else:
+       print("Invalid action")
   def reset(self):  
     self.envstepcount = 0
     self.state = self.initial_state
