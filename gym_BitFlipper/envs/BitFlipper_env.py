@@ -50,7 +50,7 @@ class BitFlipperEnv(gym.Env):
     if seed == None:
       seed = self.space_seed
     self.envstepcount = 0
-    spaces.seed(self.space_seed)
+    spaces.seed(seed)
     self.initial_state = self.observation_space.sample()
     self.goal = self.observation_space.sample()
     self.state = self.initial_state
