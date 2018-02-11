@@ -40,9 +40,13 @@ class BitFlipperEnv(gym.Env):
       return  (np.array(self.state),reward,done,{})
     else:
        print("Invalid action")
-  def reset(self):  
+  def reset(self,seed=self.space_seed):  
     self.envstepcount = 0
+    spaces.seed(space_seed)
+    self.initial_state = self.observation_space.sample()
+    self.goal = self.observation_space.sample()
     self.state = self.initial_state
+    
     return self.state
   
   def close(self):
