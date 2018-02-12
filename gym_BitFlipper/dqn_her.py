@@ -26,7 +26,7 @@ def make_env(n=10,space_seed=0):
   env.seed(0)
   return env
 
-def train(env,save_path):
+def train(env,save_path,num_optimisation_steps=40):
   #train deepq agent on env
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
@@ -67,7 +67,7 @@ def test(env,load_path,num_episodes=1000):
   test_render_file.close()
   return success_rate
 
-def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
+def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./",num_optimisation_steps=40):
   test_results_file = open(save_path+"test_results.txt","w")
   for n in n_list:
     for space_seed in space_seed_list:
@@ -75,7 +75,7 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
         env = make_env(n,space_seed)
         filename = "bitflip"+str(n)+":"+str(space_seed)
         with tf.Graph().as_default():
-            train(env,save_path+filename+".pkl")
+            train(env,save_path+filename+".pkl",num_optimisation_steps=40)
         with tf.Graph().as_default():
             success_rate = test(env,save_path+filename,num_episodes) 
             test_results_file.write("Bits :"+str(n)+","+"Seed :"+str(space_seed)+","+"Success :"+str(success_rate)+"\n")
