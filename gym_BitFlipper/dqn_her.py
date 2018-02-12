@@ -11,8 +11,7 @@ import tensorflow as tf
 def callback(lcl, _glb):
     #for deepq training
     #stop training when mean reward for last 100 episodes <= (reward_max - reward_dist)
-    reward_dist = 0.1
-    is_solved = (lcl['saved_mean_reward']!=None) and (lcl['saved_mean_reward']>=(lcl['env'].reward_max - reward_dist))
+    is_solved = (lcl['saved_mean_reward']!=None) and (lcl['saved_mean_reward_diff']<=0.05)
     return is_solved
 
 def make_env(n=10,space_seed=0):
@@ -32,7 +31,8 @@ def train(env,save_path,optimisation_factor=1):
   a=deepq.models.mlp([256])
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.05,
       exploration_final_eps=0.005,train_freq=1,batch_size=128,gamma=0.95,
-      print_freq=200,checkpoint_freq=100,target_network_update_freq=16,num_optimisation_steps=env.n*optimisation_factor)
+      print_freq=200,checkpoint_freq=100,target_network_update_freq=16,num_optimisation_steps=env.n*optimisation_factor,
+      callback=callback)
   #save trained model 
   print("Saving model to "+save_path)
   act.save(save_path)
