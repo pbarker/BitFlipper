@@ -35,7 +35,7 @@ def train(env,save_path):
   a=deepq.models.mlp([256])
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.05,
       exploration_final_eps=0.005,train_freq=1,batch_size=128,gamma=0.95,
-      print_freq=200,checkpoint_freq=1000,target_network_update_freq=16,callback=callback)
+      print_freq=200,checkpoint_freq=1000,target_network_update_freq=16)
   #save trained model 
   print("Saving model to "+save_path)
   act.save(save_path)
@@ -50,7 +50,7 @@ def test(env,load_path,num_episodes=1000):
       while not done:
           render_string = env.render(mode='ansi')+"\n"
           test_render_file.write(render_string)  
-          obs, rew, done, _ = env.step(act(obs[None])[0])
+          obs, rew, done, _ = env.step(act(np.concatenate([obs+env.goal])[None])[0])
           episode_rew += rew
       render_string = env.render(mode='ansi')+"\n"
       test_render_file.write(render_string)
