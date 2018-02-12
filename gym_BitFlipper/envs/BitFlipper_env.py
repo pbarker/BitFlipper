@@ -55,6 +55,8 @@ class BitFlipperEnv(gym.Env):
     self.goal = self.observation_space.sample()
     self.state = self.initial_state
     self.reward_max = -np.sum(np.bitwise_xor(self.initial_state,self.goal))+1
+    if(np.array_equal(self.goal,self.initial_state)):
+       self.reward_max = 0
     return self.state
   
   def close(self):
