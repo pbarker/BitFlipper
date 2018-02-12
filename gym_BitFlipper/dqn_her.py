@@ -26,13 +26,13 @@ def make_env(n=10,space_seed=0):
   env.seed(0)
   return env
 
-def train(env,save_path,num_optimisation_steps=40):
+def train(env,save_path):
   #train deepq agent on env
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.05,
       exploration_final_eps=0.005,train_freq=1,batch_size=128,gamma=0.95,
-      print_freq=200,checkpoint_freq=100,target_network_update_freq=16,num_optimisation_steps=num_optimisation_steps)
+      print_freq=200,checkpoint_freq=100,target_network_update_freq=16,num_optimisation_steps=env.n*2)
   #save trained model 
   print("Saving model to "+save_path)
   act.save(save_path)
@@ -67,7 +67,7 @@ def test(env,load_path,num_episodes=1000):
   test_render_file.close()
   return success_rate
 
-def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./",num_optimisation_steps=[5,10]):
+def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./"):
   test_results_file = open(save_path+"test_results.txt","w")
   for n in n_list:
     for space_seed in space_seed_list:
@@ -75,7 +75,7 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./",nu
         env = make_env(n,space_seed)
         filename = "bitflip"+str(n)+":"+str(space_seed)
         with tf.Graph().as_default():
-            train(env,save_path+filename+".pkl",num_optimisation_steps=num_optimisation_steps[n])
+            train(env,save_path+filename+".pkl")
         with tf.Graph().as_default():
             success_rate = test(env,save_path+filename,num_episodes) 
             test_results_file.write("Bits :"+str(n)+","+"Seed :"+str(space_seed)+","+"Success :"+str(success_rate)+"\n")
