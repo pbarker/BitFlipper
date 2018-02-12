@@ -41,7 +41,6 @@ class BitFlipperEnv(gym.Env):
         self.state = self.bitflip(action)  ## computes s_t1
       reward = self.calculate_reward(state,goal)
       self.envstepcount += 1
-      print(self.envstepcount)
       done = self.compute_done(reward)
       return  (np.array(self.state),reward,done,{})
     else:
