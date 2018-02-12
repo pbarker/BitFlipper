@@ -28,18 +28,14 @@ class BitFlipperEnv(gym.Env):
     if(np.array_equal(self.goal,self.initial_state)):
        self.reward_max = 0
   
-  def step(self,action,goal=None,state=None):
+  def step(self,action):
     '''
      accepts action and returns obs,reward, b_flag(episode start), info dict(optional)
     '''
-    if goal==None:
-      goal = self.goal
-    if state==None:
-      state = self.state  
     if(self.action_space.contains(action)):
       if(not(action==self.n)):
         self.state = self.bitflip(action)  ## computes s_t1
-      reward = self.calculate_reward(state,goal)
+      reward = self.calculate_reward(self.goal,self.state)
       self.envstepcount += 1
       done = self.compute_done(reward)
       return  (np.array(self.state),reward,done,{})
