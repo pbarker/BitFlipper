@@ -28,9 +28,6 @@ def make_env(n=10,space_seed=0):
 
 def train(env,save_path):
   #train deepq agent on env
-  print("Initial State: "+str((env.initial_state).T))
-  print("Goal State: "+str((env.goal).T))
-  print("Max_reward: "+str(env.reward_max))
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.05,
@@ -46,11 +43,14 @@ def test(env,load_path,num_episodes=1000):
   test_render_file = open(load_path+".txt","w")
   for i in range(num_episodes):
       obs, done = env.reset(), False
+      print("Initial State: "+str((env.initial_state).T))
+      print("Goal State: "+str((env.goal).T))
+      print("Max_reward: "+str(env.reward_max))
       episode_rew = 0.0
       while not done:
           render_string = env.render(mode='ansi')+"\n"
           test_render_file.write(render_string)  
-          obs, rew, done, _ = env.step(act(np.concatenate([obs+env.goal])[None])[0])
+          obs, rew, done, _ = env.step(act(np.concatenate([obs,env.goal])[None])[0])
           episode_rew += rew
       render_string = env.render(mode='ansi')+"\n"
       test_render_file.write(render_string)
