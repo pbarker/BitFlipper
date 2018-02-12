@@ -42,7 +42,7 @@ def test(env,load_path,num_episodes=1000):
   success_count=0.0
   test_render_file = open(load_path+".txt","w")
   for i in range(num_episodes):
-      obs, done = env.reset(), False
+      obs, done = env.reset(seed=i), False
       print("Initial State: "+str((env.initial_state).T))
       print("Goal State: "+str((env.goal).T))
       print("Max_reward: "+str(env.reward_max))
