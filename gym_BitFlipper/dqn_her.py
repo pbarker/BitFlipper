@@ -43,7 +43,7 @@ def test(env,load_path,num_episodes=10000):
   test_render_file = open(load_path+".txt","w")
   for i in range(num_episodes):
       obs, done = env.reset(seed=i), False
-      env_string = "Initial State: "+str((env.initial_state).T)+"\nGoal State: "+str((env.goal).T)+"\nMax_reward: "+str(env.reward_max)
+      env_string = "Initial State: "+str((env.initial_state).T)+"\nGoal State: "+str((env.goal).T)+"\nMax_reward: "+str(env.reward_max)+"\n"
       print(env_string)
       test_render_file.write(env_string)  
       episode_rew = 0.0
