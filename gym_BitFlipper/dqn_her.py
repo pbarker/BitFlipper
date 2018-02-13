@@ -37,7 +37,7 @@ def train(env,save_path,optimisation_factor=1):
   print("Saving model to "+save_path)
   act.save(save_path)
 
-def test(env,load_path,num_episodes=1000):
+def test(env,load_path,num_episodes=10000):
   act = deepq.load(load_path+".pkl")
   success_count=0.0
   test_render_file = open(load_path+".txt","w")
@@ -67,7 +67,7 @@ def test(env,load_path,num_episodes=1000):
   test_render_file.close()
   return success_rate
 
-def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./",optimisation_factor=1):
+def main(n_list=[5,10],  space_seed_list=[0],num_episodes=10000,save_path="./",optimisation_factor=1):
   test_results_file = open(save_path+"test_results.txt","w")
   for n in n_list:
     for space_seed in space_seed_list:
