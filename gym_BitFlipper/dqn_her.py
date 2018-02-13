@@ -11,7 +11,7 @@ import tensorflow as tf
 def callback(lcl, _glb):
     #for deepq training
     #stop training when mean reward for last 100 episodes <= (reward_max - reward_dist)
-    is_solved = (lcl['saved_mean_reward_diff']!=None) and (lcl['saved_mean_reward_diff']<=0.1)
+    is_solved = (lcl['saved_mean_reward_diff']!=None) and (lcl['saved_mean_reward_diff']<=0.5)
     return is_solved
 
 def make_env(n=10,space_seed=0):
