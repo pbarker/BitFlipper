@@ -73,7 +73,7 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=1000,save_path="./",op
     for space_seed in space_seed_list:
         print("started for "+str(n)+","+str(space_seed))
         env = make_env(n,space_seed)
-        filename = "bitflip"+str(n)+":"+str(space_seed)
+        filename = "her:bitflip"+str(n)+":"+str(space_seed)
         with tf.Graph().as_default():
             train(env,save_path+filename+".pkl",optimisation_factor)
         with tf.Graph().as_default():
