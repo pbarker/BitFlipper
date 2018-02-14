@@ -30,7 +30,7 @@ def train(env,save_path,optimisation_factor=1,buffer_factor=1,target_freq=1,batc
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000*buffer_factor,exploration_fraction=0.05,
-      exploration_final_eps=0.01,train_freq=1,batch_size=128*batch_factor,gamma=0.95,
+      exploration_final_eps=0.01,train_freq=1,batch_size=128*batch_factor,gamma=0.98,
       print_freq=200,checkpoint_freq=100,target_network_update_freq=16*target_freq,num_optimisation_steps=env.n*optimisation_factor,
       callback=callback)
   #save trained model 
