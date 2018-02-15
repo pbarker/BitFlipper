@@ -32,8 +32,8 @@ def train(env,save_path):
   print("Max_reward: "+str(env.reward_max))
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
-  act = deepq.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=500000,exploration_fraction=0.05,
-      exploration_final_eps=0.005,train_freq=1,batch_size=128,gamma=0.95,
+  act = deepq.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=1000000,exploration_fraction=0.05,
+      exploration_final_eps=0.005,train_freq=1,batch_size=128,gamma=0.98,
       print_freq=200,checkpoint_freq=1000,target_network_update_freq=16*env.n,callback=callback)
   #save trained model 
   print("Saving model to "+save_path)
