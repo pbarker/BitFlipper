@@ -33,7 +33,7 @@ def train(env,save_path,exploration_factor=1,param_noise=False,
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=1000000*buffer_factor,exploration_fraction=0.05,
       exploration_final_eps=0.01*exploration_factor,train_freq=1,batch_size=128*batch_factor,gamma=gamma,prioritized_replay=True,
       print_freq=200,checkpoint_freq=100,target_network_update_freq=16*target_freq,num_optimisation_steps=env.n*optimisation_factor,
-      callback=callback,param_noise=param_noise)
+      callback=callback)
   #save trained model 
   print("Saving model to "+save_path)
   act.save(save_path)
