@@ -14,5 +14,15 @@ reward=-1
  
  The goal is to make a agent learn to achieve final state given a initial state.The only observation the agent get are the reward and current state.
  
-We have implemented DQN and DQN+HER on this agent.
-The results of our experiments can be found here https://drive.google.com/open?id=1yn3Zz-SFtUpw08TmjTVAlQyb4z_vWMf1
+## Steps to run
+Clone the repo<br>
+In a conda env / virtualenv :<br> `pip install -e .`
+<br>
+To run DQN on BitFlipper environment call main() from dqn.py
+
+To run DQN+HER  on BitFlipper environment call main() from dqn_her.py
+
+### Related papers:
+Deep Q Networks :http://www.davidqiu.com:8888/research/nature14236.pdf 
+
+Hindsight Experience Replay:https://arxiv.org/pdf/1707.01495.pdf
