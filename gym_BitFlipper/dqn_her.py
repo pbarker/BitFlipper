@@ -38,7 +38,7 @@ def train(env,save_path,exploration_factor=1,param_noise=False,
   print("Saving model to "+save_path)
   act.save(save_path)
 
-def test(env,load_path,num_episodes=10000):
+def test(env,load_path,num_episodes=10000,exploration_factor=1):
   act = deepq.load(load_path+".pkl")
   success_count=0.0
   test_render_file = open(load_path+".txt","w")
@@ -51,7 +51,7 @@ def test(env,load_path,num_episodes=10000):
       while not done:
           render_string = env.render(mode='ansi')+"\n"
           test_render_file.write(render_string)  
-          obs, rew, done, _ = env.step(act(np.concatenate([obs,env.goal])[None])[0])
+          obs, rew, done, _ = env.step(act(np.concatenate([obs,env.goal],update_eps=0.01*exploration_factor)[None])[0])
           episode_rew += rew
       render_string = env.render(mode='ansi')+"\n"
       test_render_file.write(render_string)
@@ -81,6 +81,6 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=10000,save_path="./",p
           optimisation_factor=optimisation_factor,buffer_factor=buffer_factor,target_freq=target_freq,
                   batch_factor=batch_factor,gamma=gamma,prioritized_replay=prioritized_replay)
         with tf.Graph().as_default():
-            success_rate = test(env,save_path+filename,num_episodes) 
+            success_rate = test(env,save_path+filename,num_episodes,exploration_factor) 
             test_results_file.write("Bits :"+str(n)+","+"Seed :"+str(space_seed)+","+"Success :"+str(success_rate)+"\n")
   test_results_file.close()
