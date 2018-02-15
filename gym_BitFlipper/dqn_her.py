@@ -25,12 +25,12 @@ def make_env(n=10,space_seed=0):
   env.seed(0)
   return env
 
-def train(env,save_path,optimisation_factor=1,buffer_factor=1,target_freq=1,batch_factor=1,gamma=0.99,prioritized_replay=True):
+def train(env,save_path,exploration_factor=1,optimisation_factor=1,buffer_factor=1,target_freq=1,batch_factor=1,gamma=0.99,prioritized_replay=True):
   #train deepq agent on env
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
   act = her.learn(env,q_func=a,lr=1e-3,max_timesteps=80000*env.n,buffer_size=1000000*buffer_factor,exploration_fraction=0.05,
-      exploration_final_eps=0.01,train_freq=1,batch_size=128*batch_factor,gamma=gamma,prioritized_replay=True,
+      exploration_final_eps=0.01*exploration_factor,train_freq=1,batch_size=128*batch_factor,gamma=gamma,prioritized_replay=True,
       print_freq=200,checkpoint_freq=100,target_network_update_freq=16*target_freq,num_optimisation_steps=env.n*optimisation_factor,
       callback=callback)
   #save trained model 
@@ -68,7 +68,7 @@ def test(env,load_path,num_episodes=10000):
   return success_rate
 
 def main(n_list=[5,10],  space_seed_list=[0],num_episodes=10000,save_path="./",prioritized_replay=True,
-         batch_factor=1,optimisation_factor=1,buffer_factor=1,target_freq=1,gamma=0.99):
+         batch_factor=1,optimisation_factor=1,buffer_factor=1,target_freq=1,gamma=0.99,exploration_factor=1):
   test_results_file = open(save_path+"test_results.txt","w")
   for n in n_list:
     for space_seed in space_seed_list:
@@ -76,7 +76,8 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=10000,save_path="./",p
         env = make_env(n,space_seed)
         filename = "her:bitflip"+str(n)+":"+str(space_seed)
         with tf.Graph().as_default():
-            train(env,save_path+filename+".pkl",optimisation_factor,buffer_factor,target_freq,batch_factor,gamma,prioritized_replay)
+            train(env,save_path+filename+".pkl",exploration_factor=1,
+                  optimisation_factor,buffer_factor,target_freq,batch_factor,gamma,prioritized_replay)
         with tf.Graph().as_default():
             success_rate = test(env,save_path+filename,num_episodes) 
             test_results_file.write("Bits :"+str(n)+","+"Seed :"+str(space_seed)+","+"Success :"+str(success_rate)+"\n")
