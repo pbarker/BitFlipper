@@ -76,7 +76,7 @@ def main(n_list=[5,10],  space_seed_list=[0],num_episodes=10000,save_path="./",p
         env = make_env(n,space_seed)
         filename = "her:bitflip"+str(n)+":"+str(space_seed)
         with tf.Graph().as_default():
-            train(env,save_path+filename+".pkl",exploration_factor=1,
+            train(env,save_path+filename+".pkl",exploration_factor,
                   optimisation_factor,buffer_factor,target_freq,batch_factor,gamma,prioritized_replay)
         with tf.Graph().as_default():
             success_rate = test(env,save_path+filename,num_episodes) 
