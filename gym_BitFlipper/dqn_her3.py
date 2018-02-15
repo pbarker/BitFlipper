@@ -1,6 +1,6 @@
 import gym
 from baselines import deepq
-import dqn_her.baselines.deepq.dqn_her2 as her
+import dqn_her.baselines.deepq.dqn_her3 as her
 import gym_BitFlipper
 import numpy as np
 from gym.envs.registration import register 
