@@ -51,7 +51,7 @@ def test(env,load_path,num_episodes=10000,exploration_factor=1):
       while not done:
           render_string = env.render(mode='ansi')+"\n"
           test_render_file.write(render_string)  
-          obs, rew, done, _ = env.step(act(np.concatenate([obs,env.goal],update_eps=0.01*exploration_factor)[None])[0])
+          obs, rew, done, _ = env.step(act(np.concatenate([obs,env.goal])[None],update_eps=0.01*exploration_factor)[0])
           episode_rew += rew
       render_string = env.render(mode='ansi')+"\n"
       test_render_file.write(render_string)
