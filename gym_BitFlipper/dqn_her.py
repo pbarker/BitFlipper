@@ -69,7 +69,7 @@ def test(env,load_path,num_episodes=10000,exploration_factor=1):
   return success_rate
 
 def main(n_list=[5,10],  space_seed_list=[0],num_episodes=10000,save_path="./",prioritized_replay=True,param_noise=False,
-         batch_factor=1,optimisation_factor=1,buffer_factor=1,target_freq=1,gamma=0.99,exploration_factor=1):
+         batch_factor=1,optimisation_factor=1,buffer_factor=1,target_freq=1,gamma=0.98,exploration_factor=1):
   test_results_file = open(save_path+"test_results.txt","w")
   for n in n_list:
     for space_seed in space_seed_list:
