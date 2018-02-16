@@ -26,7 +26,7 @@ def make_env(n=10,space_seed=0):
   return env
 
 def train(env,save_path,exploration_factor=1,param_noise=False,
-          optimisation_factor=1,buffer_factor=1,target_freq=1,batch_factor=1,gamma=0.99,prioritized_replay=True):
+          optimisation_factor=1,buffer_factor=1,target_freq=1,batch_factor=1,gamma=0.98,prioritized_replay=True):
   #train deepq agent on env
   #agent has 1 mlp hidden layer with 256 units
   a=deepq.models.mlp([256])
