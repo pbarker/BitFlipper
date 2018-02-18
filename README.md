@@ -22,6 +22,7 @@ To run DQN on BitFlipper environment call main() from dqn.py
 
 To run DQN+HER  on BitFlipper environment call main() from dqn_her.py
 
+Note that DQN is trained for single state-goal pair while DQN+HER is trained for multiple state-goal pairs.
 ### Related papers:
 Deep Q Networks :http://www.davidqiu.com:8888/research/nature14236.pdf 
 
