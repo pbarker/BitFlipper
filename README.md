@@ -27,3 +27,10 @@ Note that DQN is trained for single state-goal pair while DQN+HER is trained for
 Deep Q Networks :http://www.davidqiu.com:8888/research/nature14236.pdf 
 
 Hindsight Experience Replay:https://arxiv.org/pdf/1707.01495.pdf
+
+
+## Observations
+We found that DQN fails even for single state-goal pair as n goes above 15 but DQN+HER could solve problems till n=35.
+We tried n=2,5,10,15,20,25,30,35,40. DQN_HER could not solve n=40. Maybe that would require better tuning of parameters.
+
+Here are the results and trained models from our experiments : https://drive.google.com/drive/folders/1yn3Zz-SFtUpw08TmjTVAlQyb4z_vWMf1?usp=sharing
