@@ -20,7 +20,8 @@ In a conda env / virtualenv :<br> `pip install -e .`
 <br>
 To run DQN on BitFlipper environment call main() from dqn.py
 
-To run DQN+HER  on BitFlipper environment call main() from dqn_her.py
+To run DQN+HER  on BitFlipper environment call main() from dqn_her.py. 
+(For this install the repository dqn_her from here https://github.com/sandipan1/dqn_her)
 
 Note that DQN is trained for single state-goal pair while DQN+HER is trained for multiple state-goal pairs.See the Readme in drive link at the bottom for more details.
 ### Related papers:
