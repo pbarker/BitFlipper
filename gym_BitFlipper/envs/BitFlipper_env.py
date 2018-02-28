@@ -60,7 +60,8 @@ class BitFlipperEnv(gym.Env):
   
   def render(self, mode='human', close=False):
     print_str = str("State: "+str(self.state.T)+" Steps done: "+str(self.envstepcount))
-    print(print_str)
+    if(mode=='human'):
+      print(print_str)
     if(mode=='ansi'):
       return print_str 
   
