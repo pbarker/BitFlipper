@@ -1,5 +1,5 @@
 # BitFlipper
-BitFlipper environment for Reinforcement Learning in OpenAI gym format
+BitFlipper environment in OpenAI gym format
 
 
 ## Problem Statement
