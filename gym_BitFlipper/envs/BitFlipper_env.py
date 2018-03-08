@@ -12,21 +12,17 @@ class BitFlipperEnv(gym.Env):
       Reward: Only goal state has reward 0,rest all states have reward -1
   '''
   metadata = {'render.modes': ['human','ansi']}
-  def __init__(self,n=10,space_seed=0):
+  def __init__(self,n=10,space_seed=None):
     self.n=n    
-    self.action_space = spaces.Discrete(self.n +1) #there is an option NOT to flip any bit( index = n)
+    self.action_space = spaces.Discrete(self.n)
     self.observation_space = spaces.MultiBinary(self.n)
     self.reward_range = (-1,0)
-    spaces.seed(space_seed)
-    self.space_seed = space_seed
     self.initial_state = self.observation_space.sample()
     self.goal = self.observation_space.sample()
     self.state = self.initial_state
     self.envstepcount = 0
-    self.seed()
-    self.reward_max = -np.sum(np.bitwise_xor(self.initial_state,self.goal))+1
-    if(np.array_equal(self.goal,self.initial_state)):
-       self.reward_max = 0
+    # self.seed(seed=space_seed)
+    self.reward_max = 0
   
   def step(self,action):
     '''
@@ -43,16 +39,13 @@ class BitFlipperEnv(gym.Env):
        print("Invalid action")
         
   def reset(self,seed=None):  
-    if seed == None:
-      seed = self.space_seed
     self.envstepcount = 0
-    spaces.seed(seed)
     self.initial_state = self.observation_space.sample()
     self.goal = self.observation_space.sample()
     self.state = self.initial_state
-    self.reward_max = -np.sum(np.bitwise_xor(self.initial_state,self.goal))+1
-    if(np.array_equal(self.goal,self.initial_state)):
-       self.reward_max = 0
+    if(np.array_equal(self.goal,self.state)):
+      self.reset()
+    self.reward_max = 0
     return self.state
   
   def close(self):
